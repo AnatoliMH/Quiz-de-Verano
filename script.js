@@ -1,3 +1,1 @@
-window.addEventListener(onload, () => {
-
-});
+console.log("hola");
