@@ -1,0 +1,33 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.title {
+    color: white;
+    font-size: 3rem;
+    background-color: dodgerblue;
+    padding: 20px;
+    box-shadow: 5px 5px 5px rgba(133, 133, 133, 0.985);
+}
+
+.wrapper {
+    background-color: lightskyblue;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+}
+
+.quiz {
+    background-color: white;
+    width: 60%;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 5px 5px 5px rgba(133, 133, 133, 0.985);
+}
+
+#question {
+    font-size: 20px;
+}
