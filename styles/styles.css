@@ -4,30 +4,71 @@
 }
 
 .title {
-    color: white;
-    font-size: 3rem;
     background-color: dodgerblue;
+    color: white;
+    font-size: 50px;
     padding: 20px;
-    box-shadow: 5px 5px 5px rgba(133, 133, 133, 0.985);
 }
 
 .wrapper {
     background-color: lightskyblue;
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 80vh;
 }
 
 .quiz {
     background-color: white;
-    width: 60%;
-    padding: 30px;
-    border-radius: 20px;
     box-shadow: 5px 5px 5px rgba(133, 133, 133, 0.985);
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    padding: 30px 30px;
+    margin: 30px 20px;
+    border-radius: 20px;
 }
 
 #question {
     font-size: 20px;
+    padding: 5px 10px;
+    margin: 20px 10px;
+}
+
+#choices {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-end;
+}
+
+.button {
+    background-color: red;
+    color: white;
+    width: 90%;
+    font-size: 20px;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 20px;
+    margin: 10px 40px 10px;
+}
+
+#contButton {
+    display: flex;
+    justify-content: flex-end;
+}
+
+#buttonNext {
+    background-color: royalblue;
+    color: white;
+    width: 40%;
+    font-size: 20px;
+    border-radius: 10px;
+    border: none;
+    padding: 10px 20px;
+    margin: 20px;
+}
+
+#foot {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

@@ -30,6 +30,8 @@ window.addEventListener("load", loadPage);
 
 function loadPage() {
     addQuestionsDOM();
+    arrayAns = getCorrectAnswers();
+    console.log(arrayAns);
 }
 
 async function addQuestionsDOM() {

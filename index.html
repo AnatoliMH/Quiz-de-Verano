@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles/styles.css">
-    <link rel="shortcut icon" href="#" />
+    <link rel="shortcut icon" href="#">
     <script src="script.js"></script>
     <title>Quiz de Verano</title>
 </head>
@@ -15,13 +15,17 @@
     <h1 class="title">Quiz</h1>
     <div class="wrapper">
         <div class="quiz" id="quiz">
-            <hr>
             <h2 id="question"> Pregunta del Quiz </h2>
             <div id="choices">
-                -Eleccion 1
+                <button class="button">Eleccion 1</button>
+                <button class="button">Eleccion 2</button>
+                <button class="button">Eleccion 3</button>
+                <button class="button">Eleccion 4</button>
             </div>
-            <hr>
-            <footer>
+            <div id="contButton">
+                <button id="buttonNext">Siguiente</button>
+            </div>
+            <footer id="foot">
                 <p id="progress">Question x of y</p>
             </footer>
         </div>
