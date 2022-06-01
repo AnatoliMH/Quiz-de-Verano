@@ -31,24 +31,30 @@
 #question {
     font-size: 20px;
     padding: 5px 10px;
-    margin: 20px 10px;
+    margin: 20px 20px;
 }
 
 #choices {
     display: flex;
-    flex-wrap: wrap;
-    align-content: flex-end;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
 }
 
 .button {
     background-color: red;
     color: white;
-    width: 90%;
+    width: 80%;
     font-size: 20px;
     border: none;
     border-radius: 10px;
-    padding: 10px 20px;
+    padding: 30px 20px;
     margin: 10px 40px 10px;
+}
+
+.button:hover {
+    cursor: pointer;
+    background-color: rgba(255, 0, 0, 0.5);
 }
 
 #contButton {
@@ -64,11 +70,21 @@
     border-radius: 10px;
     border: none;
     padding: 10px 20px;
-    margin: 20px;
+    margin: 20px 40px 10px;
+}
+
+#buttonNext:hover {
+    cursor: pointer;
+    background-color: rgba(65, 105, 225, 0.5);
 }
 
 #foot {
     display: flex;
     align-items: center;
     justify-content: center;
+    margin: 20px;
+}
+
+#progress {
+    font-size: 20px;
 }
