@@ -25,13 +25,15 @@ FASE 4 (avanzado) - APIs HTML5
     partidas jugadas (leer puntuaciones de LocalStorage). 
     Representar Fecha(eje X) vs Puntuación(eje Y)
 */
+import { data } from './data/data.js'
 
 window.addEventListener("load", loadPage);
 
 function loadPage() {
-    addQuestionsDOM();
-    arrayAns = getCorrectAnswers();
-    console.log(arrayAns);
+    console.log(data[0]);
+    for (let i = 0; i < 10; i++) {
+        console.log(data.question[i]);
+    }
 }
 
 async function addQuestionsDOM() {
@@ -45,24 +47,4 @@ async function addQuestionsDOM() {
         //container.appendChild(question);
     }
     console.log()
-}
-
-async function getQuestions() {
-    let arrayQuestions = [];
-    const response = await fetch('https://opentdb.com/api.php?amount=10&category=15&difficulty=easy&type=multiple');
-    const data = await response.json();
-    data.results.forEach(e => {
-        arrayQuestions.push(e.question);
-    });
-    return arrayQuestions;
-}
-
-async function getCorrectAnswers() {
-    let correctAnswers = [];
-    const response = await fetch('https://opentdb.com/api.php?amount=10&category=15&difficulty=easy&type=multiple');
-    const data = await response.json();
-    data.results.forEach(e => {
-        correctAnswers.push(e.correct_answer);
-    });
-    return correctAnswers;
 }
