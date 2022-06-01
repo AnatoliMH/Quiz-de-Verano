@@ -8,7 +8,6 @@
     color: white;
     font-size: 50px;
     padding: 20px;
-    box-shadow: 5px 5px 5px rgba(133, 133, 133, 0.985);
 }
 
 .wrapper {
@@ -23,7 +22,7 @@
     box-shadow: 5px 5px 5px rgba(133, 133, 133, 0.985);
     display: flex;
     flex-direction: column;
-    width: 75%;
+    width: 70%;
     padding: 30px 30px;
     margin: 30px 20px;
     border-radius: 20px;
@@ -36,10 +35,9 @@
 }
 
 #choices {
-    /* background-color: black; */
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    flex-wrap: wrap;
+    align-content: flex-end;
 }
 
 .button {
@@ -53,13 +51,12 @@
     margin: 10px 40px 10px;
 }
 
-.contButton {
-    /* background-color: black; */
+#contButton {
     display: flex;
     justify-content: flex-end;
 }
 
-.buttonNext {
+#buttonNext {
     background-color: royalblue;
     color: white;
     width: 40%;
@@ -70,7 +67,7 @@
     margin: 20px;
 }
 
-.foot {
+#foot {
     display: flex;
     align-items: center;
     justify-content: center;
