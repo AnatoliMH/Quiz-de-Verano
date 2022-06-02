@@ -30,10 +30,7 @@ import { data } from './data/data.js'
 window.addEventListener("load", loadPage);
 
 function loadPage() {
-    console.log(data[0]);
-    for (let i = 0; i < 10; i++) {
-        console.log(data.question[i]);
-    }
+
 }
 
 async function addQuestionsDOM() {
