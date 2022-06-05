@@ -25,26 +25,59 @@ FASE 4 (avanzado) - APIs HTML5
     partidas jugadas (leer puntuaciones de LocalStorage). 
     Representar Fecha(eje X) vs Puntuación(eje Y)
 */
-import { data } from './data/data.js'
-
 window.addEventListener("load", loadPage);
+let questionNumber = 0;
 
-function loadPage() {
-    console.log(data[0]);
-    for (let i = 0; i < 10; i++) {
-        console.log(data.question[i]);
+async function loadPage() {
+    try {
+        const initGame = await getQuestions();
+        addQuestionsDOM(initGame[0]);
+        addButtonDOM(initGame[1]);
+    } catch (e) {
+        console.log(e);
     }
 }
 
-async function addQuestionsDOM() {
-    const container = document.getElementById("quiz");
-    const arrayQuestions = await getQuestions();
-    const arrayCorrectAnswers = await getCorrectAnswers();
+async function addQuestionsDOM(response) {
+    const question = document.getElementById("question");
+    question.innerHTML = questionNumber + 1 + '.' + response[questionNumber];
+}
 
-    for (let i = 0; i < arrayQuestions.length; i++) {
-        const question = document.createElement('p');
-        question.innerHTML = i + 1 + '. ' + arrayQuestions[i] + arrayCorrectAnswers[i];
-        //container.appendChild(question);
+async function addButtonDOM(response) {
+    const contButton = document.getElementById("choices");
+    for (let i = 0; i < 4; i++) {
+        const newButton = document.createElement('button');
+        newButton.className = 'button';
+        newButton.innerHTML = response[questionNumber][i];
+        contButton.appendChild(newButton);
     }
-    console.log()
+}
+
+async function getQuestions() {
+    const URL = 'https://opentdb.com/api.php?amount=10&category=15&difficulty=easy&type=multiple'
+    let arrayLocal = [];
+    let arrayQuestions = [];
+    let arrayIncorrectAnswers = [];
+    let arrayCorrectAnswers = [];
+    let arrayAnswers = [];
+
+    const response = await fetch(URL);
+    const data = await response.json();
+    data.results.forEach(e => {
+        arrayQuestions.push(e.question);
+        arrayCorrectAnswers.push(e.correct_answer);
+        arrayIncorrectAnswers.push(e.incorrect_answers);
+    });
+    for (let i = 0; i < 10; i++) {
+        arrayAnswers.push(arrayIncorrectAnswers[i].concat(arrayCorrectAnswers[i]));
+    }
+    arrayLocal.push(arrayQuestions, arrayAnswers);
+    return arrayLocal;
+}
+
+async function getNextQuestion(response) {
+    console.log("button pressed");
+    const question = document.getElementById("question");
+    question.innerHTML = questionNumber + 1 + '.' + response[questionNumber];
+    questionNumber++;
 }
