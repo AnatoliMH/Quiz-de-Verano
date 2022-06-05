@@ -44,17 +44,16 @@
 .button {
     background-color: red;
     color: white;
-    width: 80%;
     font-size: 20px;
     border: none;
     border-radius: 10px;
     padding: 30px 20px;
-    margin: 10px 40px 10px;
+    margin: 40px 50px 10px;
 }
 
 .button:hover {
     cursor: pointer;
-    background-color: rgba(255, 0, 0, 0.5);
+    background-color: rgba(255, 0, 0, 0.4);
 }
 
 #contButton {
@@ -65,12 +64,11 @@
 #buttonNext {
     background-color: royalblue;
     color: white;
-    width: 30%;
     font-size: 20px;
     border-radius: 10px;
     border: none;
-    padding: 10px;
-    margin: 20px 55px 10px;
+    padding: 20px;
+    margin: 20px 50px 10px;
 }
 
 #buttonNext:hover {

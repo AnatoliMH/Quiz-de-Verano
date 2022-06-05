@@ -25,17 +25,14 @@ FASE 4 (avanzado) - APIs HTML5
     partidas jugadas (leer puntuaciones de LocalStorage). 
     Representar Fecha(eje X) vs Puntuación(eje Y)
 */
-//import { data } from './data/data.js'
 window.addEventListener("load", loadPage);
 let questionNumber = 0;
 
 async function loadPage() {
     try {
         const initGame = await getQuestions();
-        console.log(initGame);
         addQuestionsDOM(initGame[0]);
         addButtonDOM(initGame[1]);
-        getNextQuestion();
     } catch (e) {
         console.log(e);
     }
@@ -66,7 +63,6 @@ async function getQuestions() {
 
     const response = await fetch(URL);
     const data = await response.json();
-
     data.results.forEach(e => {
         arrayQuestions.push(e.question);
         arrayCorrectAnswers.push(e.correct_answer);
@@ -79,15 +75,9 @@ async function getQuestions() {
     return arrayLocal;
 }
 
-function getNextQuestion() {
-    const buttonNext = document.getElementById("buttonNext");
-    buttonNext.addEventListener('click', () => {
-        questionNumber++;
-
-        console.log("Button pressed", questionNumber);
-
-        if (questionNumber >= 11) {
-            // Fin juego
-        }
-    });
+async function getNextQuestion(response) {
+    console.log("button pressed");
+    const question = document.getElementById("question");
+    question.innerHTML = questionNumber + 1 + '.' + response[questionNumber];
+    questionNumber++;
 }
