@@ -29,7 +29,7 @@
 }
 
 #question {
-    font-size: 20px;
+    font-size: 25px;
     padding: 5px 10px;
     margin: 20px 20px;
 }
@@ -42,7 +42,6 @@
 }
 
 .button {
-    background-color: red;
     color: white;
     font-size: 20px;
     border: none;
@@ -84,5 +83,17 @@
 }
 
 #progress {
-    font-size: 20px;
+    font-size: 25px;
+}
+
+#textResults {
+    font-size: 40px;
+}
+
+#results {
+    font-size: 150px;
+    background-color: rgba(255, 72, 0, 0.5);
+    padding: 50px;
+    border-radius: 1000px;
+    text-align: center;
 }

@@ -25,42 +25,73 @@ FASE 4 (avanzado) - APIs HTML5
     partidas jugadas (leer puntuaciones de LocalStorage). 
     Representar Fecha(eje X) vs Puntuación(eje Y)
 */
+
 window.addEventListener("load", loadPage);
+const question = document.getElementById("question");
 let questionNumber = 0;
+let arrayUserAnswers = [];
 
 async function loadPage() {
     try {
         const initGame = await getQuestions();
         addQuestionsDOM(initGame[0]);
-        addButtonDOM(initGame[1]);
+        const answers = getArrayAnswers(initGame[1], initGame[2]);
+        const correctAnswers = initGame[2];
+        addButtonDOM(answers);
+        getChoice();
+        const progressText = document.querySelector('#progress');
+        const buttonNext = document.querySelector('#buttonNext');
+        progressText.innerHTML = `Question ${questionNumber + 1} / 10`;
+        buttonNext.addEventListener('click', () => {
+            if (questionNumber < 9) {
+                questionNumber++;
+                getNextQuestion(initGame[0], questionNumber);
+                const answers = getArrayAnswers(initGame[1], initGame[2]);
+                getNextAnswer(answers);
+                progressText.innerHTML = `Question ${questionNumber + 1} / 10`;
+            }
+            else {
+                const points = verifyResults(correctAnswers);
+                removeElements(points);
+            }
+        });
     } catch (e) {
         console.log(e);
     }
 }
 
 async function addQuestionsDOM(response) {
-    const question = document.getElementById("question");
     question.innerHTML = questionNumber + 1 + '.' + response[questionNumber];
 }
 
-async function addButtonDOM(response) {
+async function addButtonDOM(arrayAnswers) {
     const contButton = document.getElementById("choices");
+    const arrayColor = ['red', 'lawngreen', 'darkorange', 'mediumturquoise'];
     for (let i = 0; i < 4; i++) {
         const newButton = document.createElement('button');
         newButton.className = 'button';
-        newButton.innerHTML = response[questionNumber][i];
+        newButton.style.backgroundColor = arrayColor[i];
+        newButton.id = 'button' + i;
+        newButton.innerHTML = arrayAnswers[i];
         contButton.appendChild(newButton);
     }
 }
 
+function getArrayAnswers(incorrectAnswers, correctAnswer) {
+    let arrayAnswers = [];
+    for (let i = 0; i < 3; i++)
+        arrayAnswers.push(incorrectAnswers[questionNumber][i]);
+    arrayAnswers.push(correctAnswer[questionNumber]);
+    return arrayAnswers.sort(() => Math.random() - 0.5);
+}
+
 async function getQuestions() {
-    const URL = 'https://opentdb.com/api.php?amount=10&category=15&difficulty=easy&type=multiple'
     let arrayLocal = [];
     let arrayQuestions = [];
     let arrayIncorrectAnswers = [];
     let arrayCorrectAnswers = [];
-    let arrayAnswers = [];
 
+    const URL = 'https://opentdb.com/api.php?amount=10&category=15&difficulty=easy&type=multiple'
     const response = await fetch(URL);
     const data = await response.json();
     data.results.forEach(e => {
@@ -68,16 +99,66 @@ async function getQuestions() {
         arrayCorrectAnswers.push(e.correct_answer);
         arrayIncorrectAnswers.push(e.incorrect_answers);
     });
-    for (let i = 0; i < 10; i++) {
-        arrayAnswers.push(arrayIncorrectAnswers[i].concat(arrayCorrectAnswers[i]));
-    }
-    arrayLocal.push(arrayQuestions, arrayAnswers);
+    arrayLocal.push(arrayQuestions, arrayIncorrectAnswers, arrayCorrectAnswers);
     return arrayLocal;
 }
 
-async function getNextQuestion(response) {
-    console.log("button pressed");
-    const question = document.getElementById("question");
-    question.innerHTML = questionNumber + 1 + '.' + response[questionNumber];
-    questionNumber++;
+function getNextQuestion(response, n) {
+    question.innerHTML = n + 1 + '.' + response[n];
+}
+
+function getNextAnswer(arrayAnswers) {
+    for (let i = 0; i < 4; i++) {
+        const button = document.querySelector('#button' + i);
+        button.innerHTML = arrayAnswers[i];
+    }
+}
+
+function getChoice() {
+    for (let i = 0; i < 4; i++) {
+        const button = document.querySelector('#button' + i);
+        button.addEventListener('click', () => {
+            arrayUserAnswers.push(button.innerHTML);
+        })
+    }
+}
+
+function verifyResults(arrayCorrectAnswers) {
+    let punctuation = 0;
+    for (let i = 0; i < arrayCorrectAnswers.length; i++) {
+        if (arrayUserAnswers[i] == arrayCorrectAnswers[i]) {
+            punctuation++;
+        }
+    }
+    return punctuation;
+}
+
+function removeElements(points) {
+    const contQuiz = document.querySelector('#quiz');
+    const contQuestion = document.querySelector('#question');
+    const contChoices = document.querySelector('#choices');
+    const contNext = document.querySelector('#contButton');
+    const footer = document.querySelector('#foot');
+    contQuiz.removeChild(contQuestion);
+    contQuiz.removeChild(contChoices);
+    contQuiz.removeChild(contNext);
+    contQuiz.removeChild(footer);
+
+    const textResults = document.createElement('p');
+    textResults.innerHTML = 'Your punctuation: ';
+    textResults.id = 'textResults';
+    contQuiz.appendChild(textResults);
+
+    const results = document.createElement('p');
+    results.innerHTML = `${points} / 10`;
+    results.id = 'results';
+    contQuiz.appendChild(results);
+}
+
+function checkLocalStorage() {  // Comprueba si hay datos en el Local Storage, si no hay datos lo pone a NULL
+    if (localStorage.userData) {
+        showUserData();
+    } else {
+        document.getElementById('mySection').style.display = 'flex';
+    }
 }
