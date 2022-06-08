@@ -39,6 +39,7 @@ async function loadPage() {
         const correctAnswers = initGame[2];
         addButtonDOM(answers);
         getChoice();
+
         const progressText = document.querySelector('#progress');
         const buttonNext = document.querySelector('#buttonNext');
         progressText.innerHTML = `Question ${questionNumber + 1} / 10`;
@@ -49,10 +50,14 @@ async function loadPage() {
                 const answers = getArrayAnswers(initGame[1], initGame[2]);
                 getNextAnswer(answers);
                 progressText.innerHTML = `Question ${questionNumber + 1} / 10`;
+                if (questionNumber == 9) {
+                    buttonNext.innerHTML = 'Finish';
+                }
             }
             else {
                 const points = verifyResults(correctAnswers);
                 removeElements(points);
+                setLocalStorage(points);
             }
         });
     } catch (e) {
@@ -66,7 +71,7 @@ async function addQuestionsDOM(response) {
 
 async function addButtonDOM(arrayAnswers) {
     const contButton = document.getElementById("choices");
-    const arrayColor = ['red', 'lawngreen', 'darkorange', 'mediumturquoise'];
+    const arrayColor = ['#f95967', '#e8df85', '#8cff83', '#4f7d96'];
     for (let i = 0; i < 4; i++) {
         const newButton = document.createElement('button');
         newButton.className = 'button';
@@ -155,10 +160,7 @@ function removeElements(points) {
     contQuiz.appendChild(results);
 }
 
-function checkLocalStorage() {  // Comprueba si hay datos en el Local Storage, si no hay datos lo pone a NULL
-    if (localStorage.userData) {
-        showUserData();
-    } else {
-        document.getElementById('mySection').style.display = 'flex';
-    }
+function setLocalStorage(points) {
+    const date = new Date();
+    localStorage.setItem(points, JSON.stringify(date));
 }

@@ -4,14 +4,14 @@
 }
 
 .title {
-    background-color: dodgerblue;
+    background-color: #4f7d96;
     color: white;
     font-size: 50px;
     padding: 20px;
 }
 
 .wrapper {
-    background-color: lightskyblue;
+    background-color: #35bfd4;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -29,8 +29,8 @@
 }
 
 #question {
-    font-size: 25px;
-    padding: 5px 10px;
+    font-size: 28px;
+    padding: 5px 30px;
     margin: 20px 20px;
 }
 
@@ -42,7 +42,7 @@
 }
 
 .button {
-    color: white;
+    color: aliceblue;
     font-size: 20px;
     border: none;
     border-radius: 10px;
@@ -68,6 +68,7 @@
     border: none;
     padding: 20px;
     margin: 20px 50px 10px;
+    cursor: pointer;
 }
 
 #buttonNext:hover {
