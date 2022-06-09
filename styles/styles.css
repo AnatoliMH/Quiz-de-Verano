@@ -89,12 +89,16 @@
 
 #textResults {
     font-size: 40px;
+    padding: 20px 40px;
+    text-align: center;
 }
 
 #results {
-    font-size: 150px;
-    background-color: rgba(255, 72, 0, 0.5);
+    background-color: rgba(107, 255, 8, 0.5);
+    font-weight: bold;
+    font-size: 125px;
     padding: 50px;
-    border-radius: 1000px;
+    margin: 10px;
+    border-radius: 100px;
     text-align: center;
 }

@@ -1,101 +1,28 @@
-/*
-FASE 1: Diseño del front
-
-    Diseño responsive, mobile first, semántica HTML5
-
-FASE 2: Lógica de JavaScript
-
-    Asincronía. Usar API de preguntas https://opentdb.com/  
-    Adaptar nuestra app acorde a lo que vimos en clase
-    Conseguir con 10 preguntas nuestras, guardadas en un array de objetos, 
-    se pueda jugar a nuestro Quiz. [{..},{..},{..}...{..}]
-
-FASE 3: Asincronía
-
-    Javascript: Manejo de asincronía. Leer 10 preguntas random de la API 
-    de prenguntas para generar el Quiz
-
-FASE 4 (avanzado) - APIs HTML5
-
-    Almacenar la puntuación de cada partida en un array de objetos 
-    [{..},{..},{..}...{..}] en Local Storage. Guardar puntuación y fecha 
-    en cada objeto del array
-
-    Mostrar en la Home con una gráfica los resultados de las últimas 
-    partidas jugadas (leer puntuaciones de LocalStorage). 
-    Representar Fecha(eje X) vs Puntuación(eje Y)
-*/
-
 window.addEventListener("load", loadPage);
-const question = document.getElementById("question");
+
 let questionNumber = 0;
 let arrayUserAnswers = [];
 
 async function loadPage() {
+    const initGame = await getArrayAPI();
+    const questions = initGame[0];
+    const correctAnswers = initGame[2];
+    const answers = getArrayAnswers(initGame[1], initGame[2]);
     try {
-        const initGame = await getQuestions();
-        addQuestionsDOM(initGame[0]);
-        const answers = getArrayAnswers(initGame[1], initGame[2]);
-        const correctAnswers = initGame[2];
-        addButtonDOM(answers);
-        getChoice();
-
-        const progressText = document.querySelector('#progress');
-        const buttonNext = document.querySelector('#buttonNext');
-        progressText.innerHTML = `Question ${questionNumber + 1} / 10`;
-        buttonNext.addEventListener('click', () => {
-            if (questionNumber < 9) {
-                questionNumber++;
-                getNextQuestion(initGame[0], questionNumber);
-                const answers = getArrayAnswers(initGame[1], initGame[2]);
-                getNextAnswer(answers);
-                progressText.innerHTML = `Question ${questionNumber + 1} / 10`;
-                if (questionNumber == 9) {
-                    buttonNext.innerHTML = 'Finish';
-                }
-            }
-            else {
-                const points = verifyResults(correctAnswers);
-                removeElements(points);
-                setLocalStorage(points);
-            }
-        });
+        addButtonDOM();
+        getNextQuestion(questions);
+        getNextAnswer(answers);
+        getChoice(questions, answers, correctAnswers);
     } catch (e) {
         console.log(e);
     }
 }
 
-async function addQuestionsDOM(response) {
-    question.innerHTML = questionNumber + 1 + '.' + response[questionNumber];
-}
-
-async function addButtonDOM(arrayAnswers) {
-    const contButton = document.getElementById("choices");
-    const arrayColor = ['#f95967', '#e8df85', '#8cff83', '#4f7d96'];
-    for (let i = 0; i < 4; i++) {
-        const newButton = document.createElement('button');
-        newButton.className = 'button';
-        newButton.style.backgroundColor = arrayColor[i];
-        newButton.id = 'button' + i;
-        newButton.innerHTML = arrayAnswers[i];
-        contButton.appendChild(newButton);
-    }
-}
-
-function getArrayAnswers(incorrectAnswers, correctAnswer) {
-    let arrayAnswers = [];
-    for (let i = 0; i < 3; i++)
-        arrayAnswers.push(incorrectAnswers[questionNumber][i]);
-    arrayAnswers.push(correctAnswer[questionNumber]);
-    return arrayAnswers.sort(() => Math.random() - 0.5);
-}
-
-async function getQuestions() {
+async function getArrayAPI() {
     let arrayLocal = [];
     let arrayQuestions = [];
     let arrayIncorrectAnswers = [];
     let arrayCorrectAnswers = [];
-
     const URL = 'https://opentdb.com/api.php?amount=10&category=15&difficulty=easy&type=multiple'
     const response = await fetch(URL);
     const data = await response.json();
@@ -108,23 +35,62 @@ async function getQuestions() {
     return arrayLocal;
 }
 
-function getNextQuestion(response, n) {
-    question.innerHTML = n + 1 + '.' + response[n];
+function getArrayAnswers(incorrectAnswers, correctAnswers) {
+    let arrayAllAnswers = [];
+    for (let i = 0; i < incorrectAnswers.length; i++) {
+        let arrayAnswer = [];
+        for (let j = 0; j < incorrectAnswers[i].length; j++) {
+            arrayAnswer.push(incorrectAnswers[i][j]);
+        }
+        arrayAnswer.push(correctAnswers[i]);
+        arrayAllAnswers.push(arrayAnswer.sort(() => Math.random() - 0.5));
+    }
+    return arrayAllAnswers;
+}
+
+function addButtonDOM() {
+    const contButton = document.getElementById("choices");
+    const arrayColor = ['#f95967', '#e8df85', '#8cdd00', '#4f7d96'];
+    for (let i = 0; i < 4; i++) {
+        const newButton = document.createElement('button');
+        newButton.className = 'button';
+        newButton.id = 'button' + i;
+        newButton.style.backgroundColor = arrayColor[i];
+        contButton.appendChild(newButton);
+    }
+}
+
+function getNextQuestion(arrayQuestions) {
+    const question = document.querySelector('#question');
+    question.innerHTML = questionNumber + 1 + '. ' + arrayQuestions[questionNumber];
+
+    const progressText = document.querySelector('#progress');
+    progressText.innerHTML = `Question ${questionNumber + 1} / 10`;
 }
 
 function getNextAnswer(arrayAnswers) {
     for (let i = 0; i < 4; i++) {
         const button = document.querySelector('#button' + i);
-        button.innerHTML = arrayAnswers[i];
+        button.innerHTML = arrayAnswers[questionNumber][i];
     }
 }
 
-function getChoice() {
+function getChoice(arrayQuestions, arrayAnswers, arrayCorrectAnswers) {
     for (let i = 0; i < 4; i++) {
         const button = document.querySelector('#button' + i);
         button.addEventListener('click', () => {
-            arrayUserAnswers.push(button.innerHTML);
-        })
+            if (questionNumber < 9) {
+                arrayUserAnswers.push(button.innerHTML);
+                questionNumber++;
+                getNextQuestion(arrayQuestions);
+                getNextAnswer(arrayAnswers, arrayCorrectAnswers);
+            } else {
+                arrayUserAnswers.push(button.innerHTML);
+                const points = verifyResults(arrayCorrectAnswers);
+                removeElements(points);
+                setLocalStorage(points);
+            }
+        });
     }
 }
 
@@ -142,11 +108,9 @@ function removeElements(points) {
     const contQuiz = document.querySelector('#quiz');
     const contQuestion = document.querySelector('#question');
     const contChoices = document.querySelector('#choices');
-    const contNext = document.querySelector('#contButton');
     const footer = document.querySelector('#foot');
     contQuiz.removeChild(contQuestion);
     contQuiz.removeChild(contChoices);
-    contQuiz.removeChild(contNext);
     contQuiz.removeChild(footer);
 
     const textResults = document.createElement('p');
@@ -158,9 +122,18 @@ function removeElements(points) {
     results.innerHTML = `${points} / 10`;
     results.id = 'results';
     contQuiz.appendChild(results);
+
+    const bTryAgain = document.createElement('button');
+    bTryAgain.innerHTML = "Play Again";
+    bTryAgain.id = 'buttonNext';
+    bTryAgain.addEventListener('click', () => {
+        window.location.href = './index.html'
+    });
+    contQuiz.appendChild(bTryAgain);
 }
 
 function setLocalStorage(points) {
     const date = new Date();
-    localStorage.setItem(points, JSON.stringify(date));
+    const day = date.toLocaleDateString();
+    localStorage.setItem(points, JSON.stringify(day));
 }

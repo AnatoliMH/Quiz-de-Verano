@@ -6,9 +6,11 @@
 .header {
     padding: 10px 5px;
     text-align: center;
+    font-size: 35px;
 }
 
 #homeDescription {
+    font-size: 20px;
     padding: 30px 30px;
 }
 
@@ -47,4 +49,10 @@
     padding: 30px 30px;
     margin: 30px 20px;
     border-radius: 20px;
+}
+
+.paragraph {
+    text-align: center;
+    margin: 20px 10px;
+    font-size: 20px;
 }
