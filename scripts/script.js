@@ -88,6 +88,7 @@ function getChoice(arrayQuestions, arrayAnswers, arrayCorrectAnswers) {
                 arrayUserAnswers.push(button.innerHTML);
                 const points = verifyResults(arrayCorrectAnswers);
                 removeElements(points);
+                addResultsElements(points);
                 setLocalStorage(points);
             }
         });
@@ -104,7 +105,7 @@ function verifyResults(arrayCorrectAnswers) {
     return punctuation;
 }
 
-function removeElements(points) {
+function removeElements() {
     const contQuiz = document.querySelector('#quiz');
     const contQuestion = document.querySelector('#question');
     const contChoices = document.querySelector('#choices');
@@ -112,6 +113,10 @@ function removeElements(points) {
     contQuiz.removeChild(contQuestion);
     contQuiz.removeChild(contChoices);
     contQuiz.removeChild(footer);
+}
+
+function addResultsElements(points) {
+    const contQuiz = document.querySelector('#quiz');
 
     const textResults = document.createElement('p');
     textResults.innerHTML = 'Your punctuation: ';
@@ -123,6 +128,20 @@ function removeElements(points) {
     results.id = 'results';
     contQuiz.appendChild(results);
 
+    const paragraph = document.createElement('p');
+    if (points < 5) {
+        paragraph.innerHTML = "Your  score is too weak, you need to play more videogames!";
+        results.style.backgroundColor = '#f95967';
+    } else if (points < 8) {
+        paragraph.innerHTML = "Your score is average, very good!";
+        results.style.backgroundColor = '#e8df85';
+    } else {
+        paragraph.innerHTML = "Wow! you're a Pro-Player";
+        results.style.backgroundColor = '#8cdd00';
+    }
+    paragraph.className = 'paragraph';
+    contQuiz.appendChild(paragraph);
+
     const bTryAgain = document.createElement('button');
     bTryAgain.innerHTML = "Play Again";
     bTryAgain.id = 'buttonNext';
@@ -130,10 +149,20 @@ function removeElements(points) {
         window.location.href = './index.html'
     });
     contQuiz.appendChild(bTryAgain);
+
+    const bHome = document.createElement('button');
+    bHome.innerHTML = "Go Home";
+    bHome.id = 'buttonNext';
+    bHome.addEventListener('click', () => {
+        window.location.href = './home.html'
+    });
+    contQuiz.appendChild(bHome);
 }
 
 function setLocalStorage(points) {
     const date = new Date();
     const day = date.toLocaleDateString();
-    localStorage.setItem(points, JSON.stringify(day));
+    const hour = date.toLocaleTimeString();
+    const day_hour = day + ' ' + hour;
+    localStorage.setItem(points, JSON.stringify(day_hour));
 }

@@ -2,6 +2,7 @@ window.addEventListener("load", loadPage);
 
 function loadPage() {
     getLocalStorage();
+    resetLocalStorage();
 }
 
 function getLocalStorage() {
@@ -14,4 +15,12 @@ function getLocalStorage() {
         p.className = 'paragraph';
         contStats.appendChild(p);
     };
+}
+
+function resetLocalStorage() {
+    const buttonReset = document.querySelector('#buttonReset');
+    buttonReset.addEventListener('click', () => {
+        localStorage.clear();
+        location.reload();
+    });
 }
