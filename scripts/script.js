@@ -23,7 +23,7 @@ async function getArrayAPI() {
     let arrayQuestions = [];
     let arrayIncorrectAnswers = [];
     let arrayCorrectAnswers = [];
-    const URL = 'https://opentdb.com/api.php?amount=10&category=15&difficulty=easy&type=multiple'
+    const URL = 'https://opentdb.com/api.php?amount=10&difficulty=easy&type=multiple'
     const response = await fetch(URL);
     const data = await response.json();
     data.results.forEach(e => {
