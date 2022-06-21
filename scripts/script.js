@@ -1,14 +1,18 @@
+import { arrayAPI } from './firebase.js'
+
 window.addEventListener("load", loadPage);
 
 let questionNumber = 0;
 let arrayUserAnswers = [];
 
 async function loadPage() {
-    const initGame = await getArrayAPI();
-    const questions = initGame[0];
-    const correctAnswers = initGame[2];
-    const answers = getArrayAnswers(initGame[1], initGame[2]);
     try {
+        const idButton = document.querySelector
+        const initGame = await getArrayAPI();
+        console.log(initGame);
+        const questions = initGame[0];
+        const correctAnswers = initGame[2];
+        const answers = getArrayAnswers(initGame[1], initGame[2]);
         addButtonDOM();
         getNextQuestion(questions);
         getNextAnswer(answers);
@@ -23,7 +27,7 @@ async function getArrayAPI() {
     let arrayQuestions = [];
     let arrayIncorrectAnswers = [];
     let arrayCorrectAnswers = [];
-    const URL = 'https://opentdb.com/api.php?amount=10&difficulty=easy&type=multiple'
+    const URL = 'https://opentdb.com/api.php?amount=10&category=15&difficulty=easy&type=multiple'
     const response = await fetch(URL);
     const data = await response.json();
     data.results.forEach(e => {
@@ -98,7 +102,7 @@ function getChoice(arrayQuestions, arrayAnswers, arrayCorrectAnswers) {
 function verifyResults(arrayCorrectAnswers) {
     let punctuation = 0;
     for (let i = 0; i < arrayCorrectAnswers.length; i++) {
-        if (arrayUserAnswers[i] == arrayCorrectAnswers[i]) {
+        if (arrayUserAnswers[i] === arrayCorrectAnswers[i]) {
             punctuation++;
         }
     }
@@ -130,13 +134,13 @@ function addResultsElements(points) {
 
     const paragraph = document.createElement('p');
     if (points < 5) {
-        paragraph.innerHTML = "Your  score is too weak, you need to play more videogames!";
+        paragraph.innerHTML = "Your  score is too weak!";
         results.style.backgroundColor = '#f95967';
     } else if (points < 8) {
         paragraph.innerHTML = "Your score is average, very good!";
         results.style.backgroundColor = '#e8df85';
     } else {
-        paragraph.innerHTML = "Wow! you're a Pro-Player";
+        paragraph.innerHTML = "Wow! you're awesome!";
         results.style.backgroundColor = '#8cdd00';
     }
     paragraph.className = 'paragraph';
@@ -164,5 +168,5 @@ function setLocalStorage(points) {
     const day = date.toLocaleDateString();
     const hour = date.toLocaleTimeString();
     const day_hour = day + ' ' + hour;
-    localStorage.setItem(points, JSON.stringify(day_hour));
+    localStorage.setItem(JSON.stringify(day_hour), points);
 }

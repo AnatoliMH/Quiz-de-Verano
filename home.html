@@ -7,8 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles/stylesHome.css">
     <link rel="shortcut icon" href="#">
-    <script src="./scripts/scriptHome.js" type="module"></script>
-    <script src="./firebase.js" type="module"></script>
+    <script src="./scripts/firebase.js" type="module"></script>
     <title>Quiz de Verano</title>
 </head>
 
@@ -16,12 +15,26 @@
     <h1 class="title">Quiz</h1>
     <div class="wrapper">
         <div class="quiz" id="quiz">
-            <h2 class="header"> ¡Welcome to Videogame Quiz! </h2>
+            <h2 class="header"> ¡Welcome to Summer Quiz! </h2>
             <hr>
-            <h4 id="homeDescription">In this quiz we will check your knowledge about videogames</h4>
-            <button id="buttonStart" class="button" onclick="window.location.href='./index.html'">
-                Take the Quiz
-            </button>
+            <h4 id="homeDescription">Choose the category of the quiz:</h4>
+            <div id="contSelect">
+                <button class="buttonSelect" id="category11" 
+                    onclick="window.location.href='./index.html'">Film</button>
+                <button class="buttonSelect" id="category12"
+                    onclick="window.location.href='./index.html'">Music</button>
+                <button class="buttonSelect" id="category15" 
+                    onclick="window.location.href='./index.html'">Video Games</button>
+                <button class="buttonSelect" id="category21"
+                    onclick="window.location.href='./index.html'">Sports</button>
+                <button class="buttonSelect" id="categoryFirebase"
+                    onclick="window.location.href='./index.html'">Firebase</button>
+            </div>
+            <!--
+                <button id="buttonStart" class="button" onclick="window.location.href='./index.html'">
+                    Take the Quiz
+                </button>
+            -->
         </div>
         <div class="quiz" id="quiz">
             <h2 class="header"> Your Stats </h2>

@@ -11,7 +11,18 @@
 
 #homeDescription {
     font-size: 20px;
-    padding: 30px 30px;
+    padding: 10px;
+}
+
+#contSelect {
+    display: flex;
+    flex-direction: column;
+}
+
+.buttonSelect {
+    font-size: 20px;
+    padding: 6px;
+    margin: 10px;
 }
 
 .button {
