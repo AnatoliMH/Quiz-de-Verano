@@ -3,13 +3,14 @@ window.addEventListener("load", loadPage);
 function loadPage() {
     getLocalStorage();
     resetLocalStorage();
+    getButtonId();
 }
 
 function getLocalStorage() {
     const contStats = document.querySelector('#contStats');
     for (let i = 0; i < localStorage.length; i++) {
-        const points = localStorage.key(i);
-        const date = localStorage.getItem(points);
+        const date = localStorage.key(i);
+        const points = localStorage.getItem(date);
         const p = document.createElement('p');
         p.innerHTML = (`Date: ${date} - Points: ${points}`);
         p.className = 'paragraph';
@@ -23,4 +24,8 @@ function resetLocalStorage() {
         localStorage.clear();
         location.reload();
     });
+}
+
+function getButtonId() {
+    
 }
