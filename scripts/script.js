@@ -1,5 +1,3 @@
-import { arrayAPI } from './firebase.js'
-
 let questionNumber = 0;
 let arrayUserAnswers = [];
 
