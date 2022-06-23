@@ -1,15 +1,13 @@
 import { arrayAPI } from './firebase.js'
 
-window.addEventListener("load", loadPage);
-
 let questionNumber = 0;
 let arrayUserAnswers = [];
 
+window.addEventListener("load", loadPage);
+
 async function loadPage() {
     try {
-        const idButton = document.querySelector
         const initGame = await getArrayAPI();
-        console.log(initGame);
         const questions = initGame[0];
         const correctAnswers = initGame[2];
         const answers = getArrayAnswers(initGame[1], initGame[2]);
