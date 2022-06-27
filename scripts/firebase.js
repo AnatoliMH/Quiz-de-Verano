@@ -14,6 +14,7 @@ const firebaseConfig = {
     appId: "1:568235516635:web:4231e6980d744eee2f22fe"
 };
 
+/*
 function loginUser(app) {
     const auth = getAuth(app);
     const email = document.getElementById('mail').value;
@@ -45,6 +46,7 @@ function signUpUser(app) {
             .catch(error => alert(error.code, error.message));
     } else alert('las contraseñas no coinciden')
 }
+*/
 
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
