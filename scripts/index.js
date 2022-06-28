@@ -6,6 +6,7 @@ let arrayUserAnswers = [];
 window.addEventListener('load', loadPage);
 
 async function loadPage() {
+    // loginUser();
     initHome();
     getLocalStorage();
     resetLocalStorage();
@@ -153,18 +154,6 @@ async function initGame(category) {
     getChoice(questions, answers, correctAnswers);
 }
 
-function addButtonDOM() {
-    const contButton = document.querySelector('#contButton');
-    const arrayColor = ['#f95967', '#e8df85', '#8cdd00', '#4f7d96'];
-    for (let i = 0; i < 4; i++) {
-        const newButton = document.createElement('button');
-        newButton.className = 'button';
-        newButton.id = 'button' + i;
-        newButton.style.backgroundColor = arrayColor[i];
-        contButton.appendChild(newButton);
-    }
-}
-
 async function getArrayAPI(category) {
     let arrayLocal = [];
     let arrayQuestions = [];
@@ -180,6 +169,18 @@ async function getArrayAPI(category) {
     });
     arrayLocal.push(arrayQuestions, arrayIncorrectAnswers, arrayCorrectAnswers);
     return arrayLocal;
+}
+
+function addButtonDOM() {
+    const contButton = document.querySelector('#contButton');
+    const arrayColor = ['#f95967', '#e8df85', '#8cdd00', '#4f7d96'];
+    for (let i = 0; i < 4; i++) {
+        const newButton = document.createElement('button');
+        newButton.className = 'button';
+        newButton.id = 'button' + i;
+        newButton.style.backgroundColor = arrayColor[i];
+        contButton.appendChild(newButton);
+    }
 }
 
 function getArrayAnswers(incorrectAnswers, correctAnswers) {
@@ -312,3 +313,73 @@ function resetLocalStorage() {
         location.reload();
     });
 }
+
+/*
+function loginUser() {
+    const wrapper = document.querySelector('#wrapper');
+    const divLogin = document.createElement('div');
+    divLogin.className = 'quiz';
+    divLogin.id = 'divLogin';
+    wrapper.appendChild(divLogin);
+
+    const title = document.createElement('h2');
+    title.innerHTML = 'Welcome to Summer Quiz';
+    divLogin.appendChild(title);
+
+    const description = document.createElement('h4');
+    description.innerHTML = 'Please log in / sign up';
+    description.className = 'description';
+    divLogin.appendChild(description);
+
+    const formulary = document.createElement('form');
+    formulary.className = 'form';
+    divLogin.appendChild(formulary);
+
+    const labelName = document.createElement('label');
+    labelName.innerHTML = 'Name:';
+    formulary.appendChild(labelName);
+
+    const inputName = document.createElement('input');
+    inputName.id = 'inputName';
+    formulary.appendChild(inputName);
+
+    const labelMail = document.createElement('label');
+    labelMail.innerHTML = 'E-Mail:';
+    formulary.appendChild(labelMail);
+
+    const inputMail = document.createElement('input');
+    inputMail.id = 'inputMail';
+    formulary.appendChild(inputMail);
+
+    const labelPassword1 = document.createElement('label');
+    labelPassword1.innerHTML = 'Password:'
+    formulary.appendChild(labelPassword1);
+
+    const inputPassword1 = document.createElement('input');
+    inputPassword1.id = 'inputPassword1';
+    formulary.appendChild(inputPassword1);
+
+    const labelPassword2 = document.createElement('label');
+    labelPassword2.innerHTML = 'Repeat password:'
+    formulary.appendChild(labelPassword2);
+
+    const inputPassword2 = document.createElement('input');
+    inputPassword2.id = 'inputPassword2';
+    formulary.appendChild(inputPassword2);
+
+    const buttonLogin = document.createElement('button');
+    buttonLogin.innerHTML = 'LOG IN';
+    buttonLogin.className = 'buttonInit';
+    buttonLogin.id = 'logIn';
+    divLogin.appendChild(buttonLogin);
+
+    buttonLogin.addEventListener('click', () => {
+
+    })
+    const buttonSignUp = document.createElement('button');
+    buttonSignUp.innerHTML = 'SIGN UP';
+    buttonSignUp.className = 'buttonInit';
+    buttonSignUp.id = 'signUp';
+    divLogin.appendChild(buttonSignUp);
+}
+*/

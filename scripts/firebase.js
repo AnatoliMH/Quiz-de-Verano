@@ -14,21 +14,24 @@ const firebaseConfig = {
     appId: "1:568235516635:web:4231e6980d744eee2f22fe"
 };
 
-/*
+const app = initializeApp(firebaseConfig);
+const database = getDatabase(app);
+const refQuestions = ref(database, 'questions');
+const refAnswers = ref(database, 'answers');
+const refCorrectAnswers = ref(database, 'correctAnswers');
+
 function loginUser(app) {
     const auth = getAuth(app);
     const email = document.getElementById('mail').value;
     const pass = document.getElementById('passwd').value;
-    //funcion para loguearse
+
     signInWithEmailAndPassword(auth, email, pass)
-        .then(() => {
-            //si login ha ido correctamente
-            console.log('USER LOGUEADO CORRECTAMENTE')
+        .then(response => {
+            console.log('USER LOGUEADO CORRECTAMENTE', response);
         })
         .catch(error => alert(error.code, error.message));
 }
 
-// FUNCION CREAR USUARIO
 function signUpUser(app) {
     const form = document.getElementById('signUp');
     const username = form.name.value;
@@ -44,15 +47,8 @@ function signUpUser(app) {
                 //que hacer si el usuario se ha creado correctamente
             })
             .catch(error => alert(error.code, error.message));
-    } else alert('las contraseñas no coinciden')
+    } else alert('las contraseñas no coinciden');
 }
-*/
-
-const app = initializeApp(firebaseConfig);
-const database = getDatabase(app);
-const refQuestions = ref(database, 'questions');
-const refAnswers = ref(database, 'answers');
-const refCorrectAnswers = ref(database, 'correctAnswers');
 
 onValue(refQuestions, snapshot => {
     const data = snapshot.val();

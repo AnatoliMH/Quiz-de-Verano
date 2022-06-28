@@ -152,3 +152,8 @@ body {
     background-color: #35bfd4;
     border-radius: 5px;
 }
+
+.form {
+    display: flex;
+    flex-direction: column;
+}
