@@ -3,6 +3,10 @@
     padding: 0;
 }
 
+body {
+    background-color: #35bfd4;
+}
+
 .title {
     background-color: #4f7d96;
     color: white;
@@ -11,8 +15,8 @@
 }
 
 .wrapper {
-    background-image: url("../images/background.jpg");
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
@@ -26,6 +30,22 @@
     padding: 30px 30px;
     margin: 30px 20px;
     border-radius: 20px;
+}
+
+.header {
+    padding: 10px 5px;
+    text-align: center;
+    font-size: 35px;
+}
+
+#homeDescription {
+    font-size: 20px;
+    padding: 10px;
+}
+
+#categoryChoice {
+    display: flex;
+    flex-direction: column;
 }
 
 #question {
@@ -50,6 +70,17 @@
     margin: 40px 50px 10px;
 }
 
+.buttonInit {
+    background-color: royalblue;
+    color: white;
+    font-size: 20px;
+    border-radius: 10px;
+    border: none;
+    padding: 20px;
+    margin: 20px 20px;
+    cursor: pointer;
+}
+
 .button:hover {
     cursor: pointer;
     background-color: rgba(255, 0, 0, 0.4);
@@ -57,7 +88,7 @@
 
 #contButton {
     display: flex;
-    justify-content: flex-end;
+    flex-direction: column;
 }
 
 #buttonNext {
@@ -108,4 +139,21 @@
     border-radius: 10px;
     padding: 30px 20px;
     margin: 10px 50px;
+}
+
+.ls {
+    text-align: center;
+    margin: 20px 10px;
+    font-size: 20px;
+    margin: 20px 50px 10px;
+}
+
+.ls:hover {
+    background-color: #35bfd4;
+    border-radius: 5px;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
 }
