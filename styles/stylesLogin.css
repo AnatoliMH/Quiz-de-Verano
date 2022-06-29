@@ -3,20 +3,13 @@
     padding: 0;
 }
 
-#formulary {
+body {
+    background-color: #35bfd4;
+}
+
+.wrapper {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-}
-
-#contButton {
-    display: flex; 
-    flex-direction: row;
-}
-
-.buttonLogin {
-    font-size: 20px;
-    padding: 5px;
-    margin: 10px;
 }
